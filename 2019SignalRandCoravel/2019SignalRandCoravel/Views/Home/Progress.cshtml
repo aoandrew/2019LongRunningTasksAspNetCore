@@ -1,0 +1,38 @@
+﻿<!-- Step 3 after SignalR incorporated -->
+@{
+    ViewData["Title"] = "Progress";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>Status of your background job: <strong><span id="job-status">Waiting to start...</span></strong></p>
+
+@section Scripts
+    {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl("/jobprogress")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+        connection.on("progress",
+            (percent) => {
+                if (percent === 100) {
+                    document.getElementById("job-status").innerText = "Finished!";
+                } else {
+                    document.getElementById("job-status").innerText = `${percent}%`;
+                }
+            });
+        connection.start()
+            .then(_ => connection.invoke("AssociateJob", "@ViewBag.JobId"))
+            .catch(err => console.error(err.toString()));
+    </script>
+}
+
+
+<!-- STEP 1+2 before SingalR fully incorporated -->
+@*@{
+        ViewData["Title"] = "Progress";
+    }
+
+    <h2>@ViewData["Title"]</h2>
+    <p>Status of your background job: <strong><span id="job-status">Job status will go here...</span></strong></p>*@
