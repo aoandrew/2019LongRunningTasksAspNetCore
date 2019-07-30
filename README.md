@@ -1,7 +1,8 @@
 # 2019LongRunningTasksAspNetCore
 2019 Long Running Tasks Asp.Net Core
 
-Two appropriate methods to deal with long running tasks and Asp.Net core:
+Two appropriate methods to deal with long running tasks and Asp.Net core:<br />
+
 Method 1:
 https://www.jerriepelser.com/blog/communicate-status-background-job-signalr/ (this is a good solution if you were okay tying the long-running task to the web app directly).  This exploration uses a project called Coravel - which I'll explore - but it references Hangfire which on github has a much, much bigger following. In the future, I will use that. 
 
